@@ -15,7 +15,7 @@ class Swaption:
     :param expiry: This is the expiry of the swaption and also the start of the underlying swap.
     """
 
-    def __init__(annuity, swap_rate, strike, volatility, expiry):
+    def __init__(self, annuity, swap_rate, strike, volatility, expiry):
         self.annuity = annuity
         self.swap_rate = swap_rate
         self.strike = strike
