@@ -1,4 +1,3 @@
-from interest_rates import RateCurve
 import numpy as np
 from scipy.stats import norm
 
