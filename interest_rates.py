@@ -34,39 +34,36 @@ class RateCurve:
         return {t:d for t, d in zip(maturities, discount_curve) }
 
 
-# Create a class for co-terminal and for spot starting swaps which inherits from this class.
+
 
 class Swap:
 
-    def __init__(self, maturity):
+    def __init__(self, maturity, swap_start=0):
         if not isinstance(maturity, int):
             raise ValueError("Currently only int maturities supported.")
         self.T = maturity
+        self.swap_start = swap_start
         # How often the swap payments are settled.
         self.settlement_frequency = 0.5
         self.settlement_number = int(self.T / self.settlement_frequency)
-        self.settlement_times = [self.settlement_frequency * i for i in range(self.settlement_number + 1)]
+        self.settlement_times = [self.settlement_frequency * i for i in range(self.swap_start, self.settlement_number + 1)]
         self.discount_curve = RateCurve().get_discount_curve(self.settlement_times)
 
     def swap_rate(self):
         # Return the swap rate for the specified maturity for a spot-starting swap.
-        return (1 - self.discount_curve[self.T]) / self.annuity()
+        return (self.discount_curve[self.swap_start] - self.discount_curve[self.T]) / self.annuity()
 
     def annuity(self):
         # Return the annuity for the specified maturity.
         annuity = sum([self.settlement_frequency * self.discount_curve[t] for t in self.settlement_times])
         return annuity
-
         
 
 
-
-
-swap_rates = [Swap(i).swap_rate() for i in range(30)]
-plt.plot(swap_rates)
+co_initial_swap_rates = [Swap(i).swap_rate() for i in range(30)]
+co_terminal_swap_rates = [Swap(30, swap_start=i).swap_rate() for i in range(29)]
+plt.plot(co_initial_swap_rates)
+plt.plot(co_terminal_swap_rates)
 plt.show()
 
 
-# Okay, what do you want to use these classes for?
-
-# Create co-terminal and co-initial swap pricing.
