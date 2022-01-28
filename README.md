@@ -4,7 +4,7 @@ Trying to implement what I've learned so far in the world of interest rate deriv
 For now my plan is to implement the following functionality:
 
 - Price swaps from bond yields and vice-versa.
-    This is done in `interest_rates.py`.
+  - This is done in `interest_rates.py`.
 - Implement basic Black formulas for swaptions, caplets and floorlets.
 - Price forwards.
 - Run a Monte Carlo on forwards for a small set of maturities.
