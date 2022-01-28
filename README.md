@@ -1,4 +1,4 @@
-# interest-rate-derivatives
+# Interest Rate Derivatives
 Trying to implement what I've learned so far in the world of interest rate derivatives.
 
 For now my plan is to implement the following functionality:
